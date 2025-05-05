@@ -21,8 +21,7 @@ jobs:
         run: |
           pip install jules
           pip install PyYAML
-          git config --global user.name "Sree2011"
-          git config --global user.email "gundrajusreesainandini@gmail.com"
+          
 
       - name: Run Build Process
         run: echo "Building static website"
@@ -38,7 +37,10 @@ jobs:
         run: cd my_static_site
 
       - name: Add Changes
-        run: git add .
+        run: |
+            git add .
+            git config --global user.name "Sree2011"
+            git config --global user.email "gundrajusreesainandini@gmail.com"
 
       - name: Commit Changes
         run: git commit -m "Deploying site $(git rev-parse --short HEAD)"
