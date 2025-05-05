@@ -12,4 +12,3 @@ projects:
     stages:
       build: {}
       deploy: {}
-
