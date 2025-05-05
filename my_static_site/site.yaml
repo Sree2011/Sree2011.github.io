@@ -1,15 +1,43 @@
-stages:
+name: Deploy Static Site
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
   build:
-    command: ["echo", "Building static website"]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.11"
+
+      - name: Install Jules
+        run: pip install jules
+
+      - name: Run Build Process
+        run: echo "Building static website"
+
   deploy:
-    command: ["git", "add", "."]
-    command: ["git", "commit", "-m", "Deploying site $(git rev-parse --short HEAD)"]
-    command: ["git", "push", "origin", "main"]
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-projects:
-  static_site:
-    path: "./my_static_site"
-    stages:
-      build: {}
-      deploy: {}
+      - name: Move to Static Site Directory
+        run: cd my_static_site
 
+      - name: Add Changes
+        run: git add .
+
+      - name: Commit Changes
+        run: git commit -m "Deploying site $(git rev-parse --short HEAD)"
+
+      - name: Push Changes
+        run: git push origin main
