@@ -23,7 +23,9 @@ jobs:
 
       - name: Move to Static Site Directory
         working-directory: my_static_site  # Ensures Jules runs inside the correct folder
-        run: jules deploy
+        run: |
+            jules build --config ./jules.yaml  # Build the static site using Jules
+            jules deploy --config ./jules.yaml  # Deploy the static site using Jules
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
