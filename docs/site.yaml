@@ -1,0 +1,14 @@
+stages:
+  build:
+    command: ["echo", "Building static website"]
+  deploy:
+    command: ["git", "add", "."]
+    command: ["git", "commit", "-m", "Deploying site $(git rev-parse --short HEAD)"]
+    command: ["git", "push", "origin", "main"]
+
+projects:
+  static_site:
+    path: "./my_static_site"
+    stages:
+      build: {}
+      deploy: {}

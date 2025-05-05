@@ -1,0 +1,67 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat,Serif:wght@300;400;600&display=swap');
+
+/* Global Styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #001F3F; /* Dark Navy */
+    color: #C0C0C0; /* Silver Gray */
+    margin: 0;
+    padding: 0;
+}
+
+/* Headings */
+h1, h2, h3 {
+    font-family: 'Aguero Serif', serif;
+    color: #800000; /* Maroon */
+    font-weight: bold;
+}
+
+/* Buttons */
+button {
+    background-color: #800000; /* Maroon */
+    color: #FFDAB9; /* Soft Peach */
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background-color: #5A0000; /* Slightly darker Maroon */
+}
+
+/* Links */
+a {
+    color: #FFDAB9; /* Soft Peach */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #800000; /* Maroon */
+}
+
+/* Containers */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Hero Section */
+.hero {
+    background-color: #800000; /* Maroon */
+    color: #FFDAB9; /* Soft Peach */
+    text-align: center;
+    padding: 100px 20px;
+}
+
+/* Footer */
+footer {
+    background-color: #5A0000; /* Dark Maroon */
+    text-align: center;
+    padding: 20px;
+    color: #FFDAB9; /* Soft Peach */
+}
