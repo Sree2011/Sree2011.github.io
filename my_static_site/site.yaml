@@ -18,7 +18,9 @@ jobs:
           python-version: "3.11"
 
       - name: Install Jules
-        run: pip install jules
+        run: |
+          pip install jules
+          pip install PyYAML
 
       - name: Run Build Process
         run: echo "Building static website"
