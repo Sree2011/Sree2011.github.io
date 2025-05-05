@@ -1,0 +1,26 @@
+name: Jules GitHub Pages Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Jules
+        run: pip install jules
+
+      - name: Move to Static Site Directory
+        run: cd my_static_site
+
+      - name: Run Jules Deployment
+        run: jules run deploy
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
