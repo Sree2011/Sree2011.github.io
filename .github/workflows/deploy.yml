@@ -13,14 +13,22 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Set Up Python (Fix Jules dependency issues)
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'  # Use Python 3.11 to prevent 'imp' module errors
+
       - name: Install Jules
         run: pip install jules
 
       - name: Move to Static Site Directory
-        run: cd my_static_site
-
-      - name: Run Jules Deployment
-        run: jules run deploy
+        working-directory: my_static_site  # Ensures Jules runs inside the correct folder
+        run: |
+          ls -la  # Lists contents to verify correct directory
+          jules run deploy
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./my_static_site  # Ensures only the static site files are deployed
