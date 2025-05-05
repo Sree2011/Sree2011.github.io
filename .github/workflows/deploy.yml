@@ -21,6 +21,8 @@ jobs:
         run: |
           pip install jules
           pip install PyYAML
+          git config --global user.name "Sree2011"
+          git config --global user.email "gundrajusreesainandini@gmail.com"
 
       - name: Run Build Process
         run: echo "Building static website"
