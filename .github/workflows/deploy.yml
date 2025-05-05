@@ -1,4 +1,4 @@
-name: Jules GitHub Pages Deployment
+name: Deploy Static Site
 
 on:
   push:
@@ -6,29 +6,40 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set Up Python (Fix Jules dependency issues)
-        uses: actions/setup-python@v4
+      - name: Set Up Python
+        uses: actions/setup-python@v3
         with:
-          python-version: '3.11'  # Use Python 3.11 to prevent 'imp' module errors
+          python-version: "3.11"
 
       - name: Install Jules
-        run: pip install --upgrade jules
+        run: |
+          pip install jules
+          pip install PyYAML
+
+      - name: Run Build Process
+        run: echo "Building static website"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
       - name: Move to Static Site Directory
-        working-directory: my_static_site  # Ensures Jules runs inside the correct folder
-        run: |
-            jules build
-            jules deploy
+        run: cd my_static_site
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./my_static_site  # Ensures only the static site files are deployed
+      - name: Add Changes
+        run: git add .
+
+      - name: Commit Changes
+        run: git commit -m "Deploying site $(git rev-parse --short HEAD)"
+
+      - name: Push Changes
+        run: git push origin main
