@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Set Up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: "3.11"
 
@@ -21,7 +21,6 @@ jobs:
         run: |
           pip install jules
           pip install PyYAML
-          
 
       - name: Run Build Process
         run: echo "Building static website"
@@ -34,16 +33,26 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Move to Static Site Directory
-        run: cd my_static_site
+        working-directory: my_static_site
+        run: ls -la  # Lists contents for verification
 
       - name: Add Changes
+        working-directory: my_static_site
         run: |
-            git add .
-            git config --global user.name "Sree2011"
-            git config --global user.email "gundrajusreesainandini@gmail.com"
+          git add .
+          git config --global user.name "Sree2011"
+          git config --global user.email "gundrajusreesainandini@gmail.com"
 
       - name: Commit Changes
+        working-directory: my_static_site
         run: git commit -m "Deploying site $(git rev-parse --short HEAD)"
 
       - name: Push Changes
-        run: git push origin main
+        working-directory: my_static_site
+        run: git push origin gh-pages  # Pushes to GitHub Pages branch
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./my_static_site
