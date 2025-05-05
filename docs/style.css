@@ -17,7 +17,7 @@ h1, h2, h3 {
     font-weight: bold;
 }
 
-.hero-text{
+.hero-content h2{
     color: #FFDAB9; /* Soft Peach */
     font-weight: bold;
 }
